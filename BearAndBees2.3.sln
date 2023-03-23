@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BearAndBees2.3", "BearAndBees2.3.csproj", "{A45EBB5C-D07B-4298-A06B-21BFCFD897D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A45EBB5C-D07B-4298-A06B-21BFCFD897D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A45EBB5C-D07B-4298-A06B-21BFCFD897D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A45EBB5C-D07B-4298-A06B-21BFCFD897D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A45EBB5C-D07B-4298-A06B-21BFCFD897D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1446BE9-171D-4D54-9287-07311273B56C}
+	EndGlobalSection
+EndGlobal

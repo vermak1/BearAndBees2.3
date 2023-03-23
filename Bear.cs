@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,38 +7,38 @@ namespace BearAndBees2._3
 {
     internal class Bear
     {
-        public Boolean Awake { get; set; }
+        private readonly Pot _pot;
 
-        public Bear()
+        private readonly Object _sync;
+
+        public Bear(Pot pot, object sync)
         {
-            Awake = false;
+            _pot = pot;
+            _sync = sync;
         }
-        public void SleepAndWaitForEat(Pot pot, object sync)
+
+        public void SleepAndWaitForEat()
         {
             Task t = Task.Factory.StartNew(async () =>
             {
                 while (true)
                 {
-                    if (!Awake)
-                    {
-                        Console.WriteLine("Bear is sleeping...");
-                        Thread.Sleep(500);
-                        continue;
-                    }
-                    await EatHoney(pot, sync);
+                    Stopwatch stopwatch = Stopwatch.StartNew();
+                    _pot.Event.WaitOne();
+                    Console.WriteLine("Waiting took [{0}]", stopwatch.Elapsed.TotalSeconds);
+                    await EatHoney();
                 }
             });
         }
 
-        private async Task EatHoney(Pot pot, object sync)
+        private async Task EatHoney()
         {
             Task t = Task.Delay(5000);
             Console.WriteLine("Eating honey...");
             await t;
-            lock (sync)
+            lock (_sync)
             {
-                Awake = false;
-                pot.Portions.Clear();
+                _pot.Portions.Clear();
             }
             Console.WriteLine("All honey is gone");
         }

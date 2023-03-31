@@ -11,8 +11,11 @@ namespace BearAndBees2._3
         private readonly Object _sync;
 
         private readonly Pot _pot;
-        public Bee(object sync, Pot pot)
+
+        private readonly AutoResetEvent _bearReadyToEatEvent;
+        public Bee(object sync, Pot pot, AutoResetEvent bearEvent)
         {
+            _bearReadyToEatEvent = bearEvent;
             r = new Random();
             _sync = sync;
             _pot = pot;
@@ -27,14 +30,14 @@ namespace BearAndBees2._3
                     Thread.Sleep(r.Next(500, 1000));//doing work
                     lock (_sync)
                     {
-                        if (_pot.Portions.Count == _pot.Portions.Capacity)
+                        if (_pot.IsFull)
                             continue;
 
-                        _pot.Portions.Add(byte.MaxValue);
-                        if (_pot.Portions.Count == _pot.Portions.Capacity)
+                        _pot.AddOnePortion(byte.MaxValue);
+                        if (_pot.IsFull)
                         {
                             Console.WriteLine("Pot is full, waking bear up");
-                            _pot.Event.Set();
+                            _bearReadyToEatEvent.Set();
                         }
                     }
                 }

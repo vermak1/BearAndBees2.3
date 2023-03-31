@@ -8,8 +8,10 @@ namespace BearAndBees2._3
         {
             try
             {
-                Forest forest = new Forest(1000, 2);
-                forest.Start();
+                using(Forest forest = new Forest(10, 5))
+                {
+                    forest.Start();
+                }
             }
             catch (Exception ex)
             {

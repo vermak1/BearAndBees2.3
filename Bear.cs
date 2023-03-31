@@ -11,8 +11,10 @@ namespace BearAndBees2._3
 
         private readonly Object _sync;
 
-        public Bear(Pot pot, object sync)
+        private readonly AutoResetEvent _bearReadyToEatEvent;
+        public Bear(Pot pot, object sync, AutoResetEvent bearEvent)
         {
+            _bearReadyToEatEvent = bearEvent;
             _pot = pot;
             _sync = sync;
         }
@@ -23,8 +25,9 @@ namespace BearAndBees2._3
             {
                 while (true)
                 {
+                    Console.WriteLine("Bear is sleeping...");
                     Stopwatch stopwatch = Stopwatch.StartNew();
-                    _pot.Event.WaitOne();
+                    _bearReadyToEatEvent.WaitOne();
                     Console.WriteLine("Waiting took [{0}]", stopwatch.Elapsed.TotalSeconds);
                     await EatHoney();
                 }
@@ -38,7 +41,7 @@ namespace BearAndBees2._3
             await t;
             lock (_sync)
             {
-                _pot.Portions.Clear();
+                _pot.RemoveAllPortions();
             }
             Console.WriteLine("All honey is gone");
         }
